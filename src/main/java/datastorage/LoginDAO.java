@@ -1,31 +1,50 @@
 package datastorage;
 
+import model.LoginModel;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LoginDAO implements DAO {
-    @Override
-    public void create(Object o) throws SQLException {
-
+public class LoginDAO extends DAOimp<LoginModel> {
+    public LoginDAO(Connection conn) {
+        super(conn);
     }
 
     @Override
-    public Object read(long key) throws SQLException {
+    protected String getCreateStatementString(LoginModel loginModel) {
+        return null
+    }
+
+    @Override
+    protected String getReadByIDStatementString(long key) {
         return null;
     }
 
     @Override
-    public List readAll() throws SQLException {
+    protected LoginModel getInstanceFromResultSet(ResultSet set) throws SQLException {
         return null;
     }
 
     @Override
-    public void update(Object o) throws SQLException {
-
+    protected String getReadAllStatementString() {
+        return null;
     }
 
     @Override
-    public void deleteById(long key) throws SQLException {
+    protected ArrayList<LoginModel> getListFromResultSet(ResultSet set) throws SQLException {
+        return null;
+    }
 
+    @Override
+    protected String getUpdateStatementString(LoginModel loginModel) {
+        return null;
+    }
+
+    @Override
+    protected String getDeleteStatementString(long key) {
+        return null;
     }
 }
