@@ -1,5 +1,6 @@
 package controller;
 
+import datastorage.ArchieveDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Archieve;
 import model.Patient;
 import model.Treatment;
 import datastorage.DAOFactory;
@@ -134,11 +136,14 @@ public class AllTreatmentController {
 
     @FXML
     public void handleDelete(){
+        ArchiveService archiveService = new ArchiveService();
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment t = this.tableviewContent.remove(index);
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
+        ArchieveDAO archieveDAO = DAOFactory.getDAOFactory().createArchiveDAO();
         try {
-            //Vorher Archivieren dann löschen
+           Archieve toBlock = archiveService.convertTreatmentIntoArchive(t);
+           archieveDAO.create(toBlock);
             dao.deleteById(t.getTid());
         } catch (SQLException e) {
             e.printStackTrace();
