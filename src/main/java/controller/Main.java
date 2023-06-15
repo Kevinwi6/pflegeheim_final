@@ -11,14 +11,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main extends Application {
 
     private Stage primaryStage;
+    private ArchiveService archiveService = new ArchiveService();
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
+        archiveService.checkDateForDelete();
         mainWindow();
     }
 

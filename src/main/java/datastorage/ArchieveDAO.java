@@ -15,6 +15,9 @@ public class ArchieveDAO extends DAOimp<Archieve>{
     public ArchieveDAO(Connection conn) {
         super(conn);
     }
+
+
+
     @Override
     protected String getCreateStatementString(Archieve archieve) {
        return String.format("INSERT INTO BLOCKEDDATA (PID,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",

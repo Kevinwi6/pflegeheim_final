@@ -28,7 +28,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 2370
+SET FILES CHECK 2473
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST '3dd6b9265ff18f31dc30df59304b0ca7'
 ALTER USER SA SET LOCAL TRUE
@@ -65,4 +65,3 @@ INSERT INTO TREATMENT VALUES(14,5,'2020-08-24','09:30','10:15','KG','Lympfdraina
 INSERT INTO TREATMENT VALUES(16,15,'2020-08-31','13:30','13:45','Toilettengang','Hilfe beim Toilettengang; Patientin klagt \u00fcber Schmerzen beim Stuhlgang. Gabe von Iberogast')
 INSERT INTO TREATMENT VALUES(17,15,'2020-09-01','16:00','17:00','KG','Massage der Extremit\u00e4ten zur Verbesserung der Durchblutung')
 INSERT INTO BLOCKEDDATA VALUES(0,3,'2020-06-04','07:30','08:00','Waschen','Patient mit Waschlappen gewaschen und frisch angezogen. Patient gewendet.','2023-06-15')
-INSERT INTO BLOCKEDDATA VALUES(1,1,'2020-06-06','15:10','16:00','Spaziergang','Spaziergang im Park, Patient d\u00f6st  im Rollstuhl ein','2023-06-15')
