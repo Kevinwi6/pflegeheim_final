@@ -4,9 +4,8 @@ import utils.DateConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
-public class Archieve {
+public class TArchieve {
     private long bid;
     private long pid;
     private LocalDate date;
@@ -16,7 +15,7 @@ public class Archieve {
     private String remarks;
     private LocalDate archived_at;
 
-    public Archieve(long pid,LocalDate date,LocalTime begin,LocalTime end,String description,String remarks,LocalDate archived_at){
+    public TArchieve(long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
         this.pid = pid;
         this.archived_at = archived_at;
         this.date = date;
@@ -25,7 +24,7 @@ public class Archieve {
         this.description = description;
         this.remarks = remarks;
     }
-    public Archieve(long bid,long pid,LocalDate date,LocalTime begin,LocalTime end,String description,String remarks,LocalDate archived_at){
+    public TArchieve(long bid, long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
     this.bid = bid;
     this.pid = pid;
     this.archived_at = archived_at;
