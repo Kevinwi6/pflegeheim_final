@@ -16,6 +16,15 @@ public class Archieve {
     private String remarks;
     private LocalDate archived_at;
 
+    public Archieve(long pid,LocalDate date,LocalTime begin,LocalTime end,String description,String remarks,LocalDate archived_at){
+        this.pid = pid;
+        this.archived_at = archived_at;
+        this.date = date;
+        this.end = end;
+        this.begin = begin;
+        this.description = description;
+        this.remarks = remarks;
+    }
     public Archieve(long bid,long pid,LocalDate date,LocalTime begin,LocalTime end,String description,String remarks,LocalDate archived_at){
     this.bid = bid;
     this.pid = pid;
