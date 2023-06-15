@@ -1,21 +1,25 @@
 package controller;
 
+import datastorage.CaregiverDAO;
 import datastorage.DAOFactory;
 import datastorage.TreatmentDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Caregiver;
 import model.Patient;
 import model.Treatment;
 import utils.DateConverter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class NewTreatmentController {
+    @FXML
+    private ComboBox<String> combobox;
     @FXML
     private Label lblSurname;
     @FXML
@@ -31,11 +35,16 @@ public class NewTreatmentController {
     @FXML
     private DatePicker datepicker;
 
+    private ObservableList<String> tableviewContent = FXCollections.observableArrayList();
+    private ArrayList<Caregiver> careGiverList;
     private AllTreatmentController controller;
     private Patient patient;
     private Stage stage;
 
     public void initialize(AllTreatmentController controller, Stage stage, Patient patient) {
+        combobox.setItems(tableviewContent);
+        combobox.getSelectionModel().select(0);
+
         this.controller= controller;
         this.patient = patient;
         this.stage = stage;
@@ -43,8 +52,19 @@ public class NewTreatmentController {
     }
 
     private void showPatientData(){
+        CaregiverDAO cDao = DAOFactory.getDAOFactory().createCareGiverDAO();
+
         this.lblFirstname.setText(patient.getFirstName());
         this.lblSurname.setText(patient.getSurname());
+
+        try {
+            careGiverList = (ArrayList<Caregiver>) cDao.readAll();
+            for(Caregiver caregiver : careGiverList) {
+                this.tableviewContent.add(caregiver.getFirstname());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

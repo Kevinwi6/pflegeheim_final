@@ -23,6 +23,8 @@ import java.util.List;
 
 public class AllTreatmentController {
     @FXML
+    private TableColumn<Treatment, String> colCareGiver;
+    @FXML
     private TableView<Treatment> tableView;
     @FXML
     private TableColumn<Treatment, Integer> colID;

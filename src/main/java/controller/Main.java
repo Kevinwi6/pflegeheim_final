@@ -1,7 +1,6 @@
 package controller;
 
 import datastorage.ConnectionBuilder;
-import datastorage.LoginDAO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -10,10 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.LoginModel;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class Main extends Application {
@@ -30,7 +27,7 @@ public class Main extends Application {
 
     public void mainWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/MainWindowView.fxml"));
+            FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/LoginView.fxml"));
             BorderPane pane = loader.load();
 
             Scene scene = new Scene(pane);
