@@ -30,7 +30,6 @@ public class LoginDAO extends DAOimp<LoginModel> {
     @Override
     protected LoginModel getInstanceFromResultSet(ResultSet set) throws SQLException {
         LoginModel p = null;
-        LocalDate date = DateConverter.convertStringToLocalDate(set.getString(4));
         p = new LoginModel(set.getLong(1), set.getString(2),(set.getString(3)));
         return p;
     }
@@ -45,7 +44,7 @@ public class LoginDAO extends DAOimp<LoginModel> {
         ArrayList<LoginModel> list = new ArrayList<LoginModel>();
         LoginModel p = null;
         while (result.next()) {
-            LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
+
             p = new LoginModel(result.getLong(1), result.getString(2),
                     result.getString(3));
             list.add(p);

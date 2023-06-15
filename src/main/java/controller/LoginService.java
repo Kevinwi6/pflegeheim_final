@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LoginService {
 PasswordService pwService = new PasswordService();
-    public boolean login(String password,String username){
+    public boolean login(String username,String password){
         try {
            List<LoginModel> list = DAOFactory.getDAOFactory().createLoginDAO().readAll();
            for(LoginModel user : list){
