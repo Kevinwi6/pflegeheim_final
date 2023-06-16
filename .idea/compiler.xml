@@ -19,8 +19,5 @@
         <module name="nursing-home" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Pflegeheim" target="9" />
-    </bytecodeTargetLevel>
   </component>
 </project>

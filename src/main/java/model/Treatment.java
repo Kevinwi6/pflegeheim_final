@@ -7,14 +7,16 @@ import java.time.LocalTime;
 public class Treatment {
     private long tid;
     private long pid;
+    private long cid;
     private LocalDate date;
     private LocalTime begin;
     private LocalTime end;
     private String description;
     private String remarks;
 
-    public Treatment(long pid, LocalDate date, LocalTime begin,
+    public Treatment(long pid,long cid,LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
+        this.cid = cid;
         this.pid = pid;
         this.date = date;
         this.begin = begin;
@@ -23,15 +25,24 @@ public class Treatment {
         this.remarks = remarks;
     }
 
-    public Treatment(long tid, long pid, LocalDate date, LocalTime begin,
+    public Treatment(long tid, long pid,long cid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
         this.tid = tid;
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
         this.description = description;
         this.remarks = remarks;
+    }
+
+    public long getCid() {
+        return cid;
+    }
+
+    public void setCid(long cid) {
+        this.cid = cid;
     }
 
     public long getTid() {

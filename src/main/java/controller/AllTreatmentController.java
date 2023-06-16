@@ -142,7 +142,7 @@ public class AllTreatmentController {
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment t = this.tableviewContent.remove(index);
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
-        TArchieveDAO TArchieveDAO = DAOFactory.getDAOFactory().createArchiveDAO();
+        TArchieveDAO TArchieveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
         try {
            TArchieve toBlock = archiveService.convertTreatmentIntoArchive(t);
            TArchieveDAO.create(toBlock);
