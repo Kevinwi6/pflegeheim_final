@@ -1,5 +1,6 @@
 package controller;
 
+import datastorage.PArchiveDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
 import javafx.collections.FXCollections;
@@ -8,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import model.PArchive;
 import model.Patient;
+import model.TArchieve;
 import utils.DateConverter;
 import datastorage.DAOFactory;
 import java.sql.SQLException;
@@ -172,9 +175,13 @@ public class AllPatientController {
      */
     @FXML
     public void handleDeleteRow() {
+        ArchiveService archiveService = new ArchiveService();
         TreatmentDAO tDao = DAOFactory.getDAOFactory().createTreatmentDAO();
         Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        PArchiveDAO pArchiveDAO = DAOFactory.getDAOFactory().createPArchiveDAO();
         try {
+            PArchive toBlock = archiveService.convertPatientIntoArchive(selectedItem);
+            pArchiveDAO.create(toBlock);
             tDao.deleteByPid(selectedItem.getPid());
             dao.deleteById(selectedItem.getPid());
             this.tableView.getItems().remove(selectedItem);

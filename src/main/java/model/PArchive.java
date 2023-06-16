@@ -7,14 +7,14 @@ import java.time.LocalDate;
 public class PArchive extends Person {
     private long pid;
     private LocalDate dateOfBirth;
-    private int careLevel;
+    private String careLevel;
     private String roomnumber;
     private LocalDate archived_at;
 
     public PArchive(String firstName, String surname) {
         super(firstName, surname);
     }
-    public PArchive(long pid, String firstName, String surname, LocalDate dateOfBirth, int careLevel, String roomnumber,LocalDate archived_at) {
+    public PArchive(long pid, String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomnumber,LocalDate archived_at) {
         super(firstName, surname);
         this.pid = pid;
         this.dateOfBirth = dateOfBirth;
@@ -22,7 +22,7 @@ public class PArchive extends Person {
         this.roomnumber = roomnumber;
         this.archived_at = archived_at;
     }
-    public PArchive(String firstName, String surname, LocalDate dateOfBirth, int careLevel, String roomnumber,LocalDate archived_at) {
+    public PArchive(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomnumber,LocalDate archived_at) {
         super(firstName, surname);
         this.dateOfBirth = dateOfBirth;
         this.careLevel = careLevel;
@@ -38,7 +38,7 @@ public class PArchive extends Person {
         return dateOfBirth.toString();
     }
 
-    public int getCareLevel() {
+    public String getCareLevel() {
         return careLevel;
     }
 
@@ -46,7 +46,7 @@ public class PArchive extends Person {
         return roomnumber;
     }
 
-    public void setCareLevel(int careLevel) {
+    public void setCareLevel(String careLevel) {
         this.careLevel = careLevel;
     }
 

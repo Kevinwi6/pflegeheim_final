@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Caregiver;
 import model.TArchieve;
 import model.Patient;
 import model.Treatment;
@@ -187,9 +188,10 @@ public class AllTreatmentController {
             Scene scene = new Scene(pane);
             //da die primaryStage noch im Hintergrund bleiben soll
             Stage stage = new Stage();
+            Caregiver caregiver = new Caregiver();
 
             NewTreatmentController controller = loader.getController();
-            controller.initialize(this, stage, patient);
+            controller.initialize(this, stage,patient);
 
             stage.setScene(scene);
             stage.setResizable(false);

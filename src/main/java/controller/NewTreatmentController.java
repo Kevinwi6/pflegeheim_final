@@ -39,10 +39,10 @@ public class NewTreatmentController {
     private ArrayList<Caregiver> careGiverList;
     private AllTreatmentController controller;
     private Patient patient;
-    private Caregiver caregiver;
+
     private Stage stage;
 
-    public void initialize(AllTreatmentController controller, Stage stage, Patient patient) {
+    public void initialize(AllTreatmentController controller,Stage stage, Patient patient) {
         combobox.setItems(tableviewContent);
         combobox.getSelectionModel().select(0);
 
@@ -76,13 +76,22 @@ public class NewTreatmentController {
         LocalTime end = DateConverter.convertStringToLocalTime(txtEnd.getText());
         String description = txtDescription.getText();
         String remarks = taRemarks.getText();
+        Caregiver caregiver = getCareGiver();
         Treatment treatment = new Treatment(patient.getPid(),caregiver.getCid() ,date,
                 begin, end, description, remarks);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();
         stage.close();
     }
+    private Caregiver getCareGiver(){
+        for(Caregiver caregiver1 : careGiverList){
+            if(caregiver1.getFirstname().equals( combobox.getSelectionModel().getSelectedItem())){
+                return caregiver1;
+            }
+        }
+        return null;
 
+    }
     private void createTreatment(Treatment treatment) {
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
         try {

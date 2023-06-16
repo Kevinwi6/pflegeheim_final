@@ -19,6 +19,10 @@ public class Caregiver {
         this.phoneNumber = phoneNumber;
     }
 
+    public Caregiver() {
+
+    }
+
     public long getCid(){return this.cid;}
     public String getFirstname(){return this.firstname;}
     public String getLastname(){return this.lastname;}

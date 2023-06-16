@@ -33,7 +33,7 @@ public class PArchiveDAO extends DAOimp<PArchive> {
         LocalDate dateofbirth = DateConverter.convertStringToLocalDate(set.getString(4));
         LocalDate archived_at =  DateConverter.convertStringToLocalDate(set.getString(7));
         PArchive m = new PArchive(set.getLong(1), set.getString(2),
-                set.getString(3),dateofbirth,set.getInt(5),set.getString(6),archived_at);
+                set.getString(3),dateofbirth,set.getString(5),set.getString(6),archived_at);
         return m;
     }
 
@@ -50,7 +50,7 @@ public class PArchiveDAO extends DAOimp<PArchive> {
             LocalDate dateofbirth = DateConverter.convertStringToLocalDate(set.getString(4));
             LocalDate archived_at =  DateConverter.convertStringToLocalDate(set.getString(7));
             PArchive m = new PArchive(set.getLong(1), set.getString(2),
-                    set.getString(3),dateofbirth,set.getInt(5),set.getString(6),archived_at);
+                    set.getString(3),dateofbirth,set.getString(5),set.getString(6),archived_at);
             list.add(m);
         }
         return list;
