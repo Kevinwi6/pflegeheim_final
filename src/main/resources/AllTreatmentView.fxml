@@ -10,12 +10,12 @@
       <TableView fx:id="tableView" editable="true" layoutX="31.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="350.0" prefWidth="798.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="80.0">
         <columns>
             <TableColumn fx:id="colID" maxWidth="-1.0" minWidth="40.0" prefWidth="50.0" text="ID" />
-            <TableColumn fx:id="colPid" maxWidth="-1.0" minWidth="100.0" prefWidth="120.0" text="PatientID" />
-          <TableColumn fx:id="colDate" maxWidth="-1.0" minWidth="140.0" prefWidth="150.0" text="Datum" />
+            <TableColumn fx:id="colPid" maxWidth="95.0" minWidth="42.0" prefWidth="42.0" text="PatientID" />
+            <TableColumn fx:id="colCareGiver" maxWidth="288.0" minWidth="0.0" prefWidth="61.0" text="PflegerID" />
+          <TableColumn fx:id="colDate" maxWidth="198.0" minWidth="140.0" prefWidth="198.0" text="Datum" />
           <TableColumn fx:id="colBegin" maxWidth="-1.0" minWidth="140.0" prefWidth="150.0" text="Beginn" />
             <TableColumn fx:id="colEnd" maxWidth="135.0" minWidth="95.0" prefWidth="98.0" text="Ende" />
-            <TableColumn fx:id="colCareGiver" maxWidth="288.0" minWidth="0.0" prefWidth="146.0" text="Pfleger" />
-            <TableColumn fx:id="colDescription" maxWidth="600.0" minWidth="6.0" prefWidth="203.0" text="Kurzbeschreibung" />
+            <TableColumn fx:id="colDescription" maxWidth="600.0" minWidth="6.0" prefWidth="179.0" text="Kurzbeschreibung" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

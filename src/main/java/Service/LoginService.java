@@ -1,4 +1,4 @@
-package controller;
+package Service;
 
 import datastorage.DAOFactory;
 import model.LoginModel;

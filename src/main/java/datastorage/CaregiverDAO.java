@@ -1,7 +1,6 @@
 package datastorage;
 
 import model.Caregiver;
-import model.LoginModel;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ public class CaregiverDAO extends DAOimp<Caregiver>{
     @Override
     protected String getCreateStatementString(Caregiver caregiver) {
         return  String.format("INSERT INTO CAREGIVER (FIRSTNAME,LASTNAME,TELEPHONENUMBER) VALUES ('%s', '%s','%s')",
-                caregiver.getFirstname(),caregiver.getLastname(),caregiver.getPhoneNumber());
+                caregiver.getFirstname(),caregiver.getSurename(),caregiver.getPhoneNumber());
     }
 
     @Override
@@ -52,7 +51,7 @@ public class CaregiverDAO extends DAOimp<Caregiver>{
     @Override
     protected String getUpdateStatementString(Caregiver caregiver) {
         return String.format("UPDATE CAREGIVER SET FIRSTNAME = '%s', LASTNAME = '%s',TELEPHONENUMBER = '%s'" +
-                "WHERE cid = %d", caregiver.getFirstname(),caregiver.getLastname(), caregiver.getPhoneNumber());
+                "WHERE cid = %d", caregiver.getFirstname(),caregiver.getSurename(), caregiver.getPhoneNumber());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package controller;
+package Service;
 
 import datastorage.PArchiveDAO;
 import datastorage.TArchieveDAO;
@@ -31,22 +31,28 @@ public class ArchiveService {
         return a;
     }
 
-    public void checkDateForDelete() throws SQLException {
-       List<TArchieve> checkForDelete = TArchieveDAO.readAll();
-       List<PArchive> checkPForDelte = pArchiveDAO.readAll();
-       LocalDate actualDate = LocalDate.now();
-       for(TArchieve a : checkForDelete){
-           LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
-           if(checkForTenYears(actualDate,toCheckDate)){
-               TArchieveDAO.deleteById(a.getBid());
-           }
-       }
-       for(PArchive p : checkPForDelte){
-           LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(p.getArchived_at()));
-           if(checkForTenYears(actualDate,toCheckDate)){
-               pArchiveDAO.deleteById(p.getPid());
-           }
-       }
+    public void checkDateForDelete() {
+        List<TArchieve> checkForDelete = null;
+        try {
+            checkForDelete = TArchieveDAO.readAll();
+            List<PArchive> checkPForDelte = pArchiveDAO.readAll();
+            LocalDate actualDate = LocalDate.now();
+            for(TArchieve a : checkForDelete){
+                LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
+                if(checkForTenYears(actualDate,toCheckDate)){
+                    TArchieveDAO.deleteById(a.getBid());
+                }
+            }
+            for(PArchive p : checkPForDelte){
+                LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(p.getArchived_at()));
+                if(checkForTenYears(actualDate,toCheckDate)){
+                    pArchiveDAO.deleteById(p.getPid());
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     public LocalDate getCorrectDateToCalc(LocalDate oldDate){
       return   oldDate.plusYears(1).withMonth(1).withDayOfMonth(1);

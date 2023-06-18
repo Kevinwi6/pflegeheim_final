@@ -1,5 +1,6 @@
 package controller;
 
+import Service.ArchiveService;
 import datastorage.TArchieveDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
@@ -12,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Caregiver;
 import model.TArchieve;
 import model.Patient;
 import model.Treatment;
@@ -65,6 +65,7 @@ public class AllTreatmentController {
         this.colDate.setCellValueFactory(new PropertyValueFactory<Treatment, String>("date"));
         this.colBegin.setCellValueFactory(new PropertyValueFactory<Treatment, String>("begin"));
         this.colEnd.setCellValueFactory(new PropertyValueFactory<Treatment, String>("end"));
+        this.colCareGiver.setCellValueFactory(new PropertyValueFactory<Treatment, String>("cid"));
         this.colDescription.setCellValueFactory(new PropertyValueFactory<Treatment, String>("description"));
         this.tableView.setItems(this.tableviewContent);
         createComboBoxData();
@@ -97,7 +98,6 @@ public class AllTreatmentController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void handleComboBox(){
@@ -188,7 +188,7 @@ public class AllTreatmentController {
             Scene scene = new Scene(pane);
             //da die primaryStage noch im Hintergrund bleiben soll
             Stage stage = new Stage();
-            Caregiver caregiver = new Caregiver();
+            //Caregiver caregiver = new Caregiver();
 
             NewTreatmentController controller = loader.getController();
             controller.initialize(this, stage,patient);

@@ -13,9 +13,9 @@
     <center>
         <GridPane alignment="center" hgap="10" vgap="10">
             <Label text="Benutzername:"/>
-            <TextField  fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField text="NhPlusUser" fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label text="Passwort:" GridPane.rowIndex="1"/>
-            <PasswordField  fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <PasswordField text="superSavePW123" fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <Button text="Anmelden" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#handleLogin"/>
             <columnConstraints>
                 <ColumnConstraints/>

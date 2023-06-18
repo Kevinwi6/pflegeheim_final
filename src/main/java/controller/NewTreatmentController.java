@@ -71,14 +71,14 @@ public class NewTreatmentController {
     @FXML
     public void handleAdd(){
         LocalDate date = this.datepicker.getValue();
-        String s_begin = txtBegin.getText();
+        //String s_begin = txtBegin.getText();
         LocalTime begin = DateConverter.convertStringToLocalTime(txtBegin.getText());
         LocalTime end = DateConverter.convertStringToLocalTime(txtEnd.getText());
         String description = txtDescription.getText();
         String remarks = taRemarks.getText();
         Caregiver caregiver = getCareGiver();
         Treatment treatment = new Treatment(patient.getPid(),caregiver.getCid() ,date,
-                begin, end, description, remarks);
+                begin, end, description, remarks, caregiver);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();
         stage.close();

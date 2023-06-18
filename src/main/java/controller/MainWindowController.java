@@ -32,4 +32,14 @@ public class MainWindowController {
         }
         AllTreatmentController controller = loader.getController();
     }
+
+    public void handleShowAllCaregiver() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/AllCareGiverView.fxml"));
+        try {
+            mainBorderPane.setCenter(loader.load());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        AllCareGiverController controller = loader.getController();
+    }
 }
