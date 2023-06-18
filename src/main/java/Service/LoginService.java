@@ -19,7 +19,7 @@ PasswordService pwService = new PasswordService();
                   }
                }
            }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             return false;
         }
         return false;

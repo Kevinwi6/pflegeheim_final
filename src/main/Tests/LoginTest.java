@@ -1,8 +1,10 @@
 import Service.LoginService;
+import Service.PasswordService;
+import model.LoginModel;
+import org.hsqldb.rights.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
     @Test
@@ -21,5 +23,13 @@ public class LoginTest {
     void loginUnsuccessful_WrongPassword() {
         LoginService loginService = new LoginService();
         assertFalse(loginService.login("NhPlusUser", "superSavePW12"));
+    }
+
+    @Test
+    void passwordIsEncrypted() {
+        String testPW = "Password";
+        PasswordService passwordService = new PasswordService();
+        String hashedPW = passwordService.hashPW(testPW);
+        assertNotEquals(testPW, hashedPW);
     }
 }
