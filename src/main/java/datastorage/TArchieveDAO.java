@@ -18,9 +18,9 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
 
 
     @Override
-    protected String getCreateStatementString(TArchieve TArchieve) {
-       return String.format("INSERT INTO BLOCKEDDATA (PID,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",
-                TArchieve.getPid(), TArchieve.getDate(), TArchieve.getBegin(), TArchieve.getEnd(), TArchieve.getDescription(), TArchieve.getRemarks(), TArchieve.getArchived_at());
+    protected String getCreateStatementString(TArchieve TArchieve) throws SQLException {
+       return String.format("INSERT INTO BLOCKEDDATA (PATIENT_NAME,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",
+                TArchieve.getPatientName(TArchieve.getPid()), TArchieve.getDate(), TArchieve.getBegin(), TArchieve.getEnd(), TArchieve.getDescription(), TArchieve.getRemarks(), TArchieve.getArchived_at());
     }
 
     @Override
@@ -34,7 +34,7 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
         LocalTime begin = DateConverter.convertStringToLocalTime(set.getString(4));
         LocalTime end = DateConverter.convertStringToLocalTime(set.getString(5));
         LocalDate archived_at =  DateConverter.convertStringToLocalDate(set.getString(8));
-        TArchieve m = new TArchieve(set.getLong(1), set.getLong(2),
+        TArchieve m = new TArchieve(set.getLong(1), set.getString(2),
                 date, begin, end, set.getString(6), set.getString(7),archived_at);
         return m;
     }
@@ -53,7 +53,7 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
             LocalTime begin = DateConverter.convertStringToLocalTime(set.getString(4));
             LocalTime end = DateConverter.convertStringToLocalTime(set.getString(5));
             LocalDate archived_at =  DateConverter.convertStringToLocalDate(set.getString(8));
-            t = new TArchieve(set.getLong(1), set.getLong(2),
+            t = new TArchieve(set.getLong(1), set.getString(2),
                     date, begin, end, set.getString(6), set.getString(7),archived_at);
             list.add(t);
         }
@@ -61,9 +61,9 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
     }
 
     @Override
-    protected String getUpdateStatementString(TArchieve TArchieve) {
-        return String.format("UPDATE BLOCKEDDATA SET pid = %d, treatment_date ='%s', begin = '%s', end = '%s'," +
-                        "description = '%s', remarks = '%s',archived_at = '%s' WHERE bid = %d", TArchieve.getPid(), TArchieve.getDate(),
+    protected String getUpdateStatementString(TArchieve TArchieve) throws SQLException {
+        return String.format("UPDATE BLOCKEDDATA SET patient_name = %s, treatment_date ='%s', begin = '%s', end = '%s'," +
+                        "description = '%s', remarks = '%s',archived_at = '%s' WHERE bid = %d", TArchieve.getPatientName(TArchieve.getPid()), TArchieve.getDate(),
                 TArchieve.getBegin(), TArchieve.getEnd(), TArchieve.getDescription(), TArchieve.getRemarks(), TArchieve.getArchived_at(),
                 TArchieve.getBid());
     }

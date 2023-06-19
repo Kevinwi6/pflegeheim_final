@@ -1,12 +1,18 @@
 package model;
 
+import datastorage.ConnectionBuilder;
+import datastorage.PatientDAO;
 import utils.DateConverter;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Treatment {
     private long tid;
+    PatientDAO patientDAO = new PatientDAO(ConnectionBuilder.getConnection());
     private long pid;
+    private String patientName;
     private long cid;
     private LocalDate date;
     private LocalTime begin;
@@ -35,6 +41,14 @@ public class Treatment {
         this.end = end;
         this.description = description;
         this.remarks = remarks;
+    }
+    public String getPatientName(long pid) throws SQLException {
+        Patient p = patientDAO.read(pid);
+        return patientName = p.getFirstName() +" "+ p.getSurname();
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public long getCid() {
