@@ -1,10 +1,7 @@
 package Service;
 
 import datastorage.*;
-import model.PArchive;
-import model.Patient;
-import model.TArchive;
-import model.Treatment;
+import model.*;
 import utils.DateConverter;
 
 import java.sql.SQLException;
@@ -48,6 +45,11 @@ public class ArchiveService {
         LocalDate dateofbirth = DateConverter.convertStringToLocalDate(p.getDateOfBirth());
         PArchive a = new PArchive(p.getPid(), p.getFirstName(), p.getSurname(), dateofbirth,
                 p.getCareLevel(), p.getRoomnumber(), LocalDate.now());
+        return a;
+    }
+
+    public CArchive convertCaregiverIntoArchive(Caregiver c){
+        CArchive a = new CArchive(c.getCid(),c.getFirstname(),c.getSurename(),c.getPhoneNumber(),LocalDate.now());
         return a;
     }
 
