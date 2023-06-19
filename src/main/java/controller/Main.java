@@ -20,7 +20,7 @@ public class Main extends Application {
     private ArchiveService archiveService = new ArchiveService();
 
     @Override
-    public void start(Stage primaryStage) throws SQLException{
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         archiveService.checkDateForDelete();
         mainWindow();

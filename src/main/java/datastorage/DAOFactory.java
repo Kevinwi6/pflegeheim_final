@@ -1,5 +1,7 @@
 package datastorage;
 
+import model.CArchive;
+
 public class DAOFactory {
 
     private static DAOFactory instance;
@@ -27,4 +29,5 @@ public class DAOFactory {
     public LoginDAO createLoginDAO(){return  new LoginDAO(ConnectionBuilder.getConnection());}
     public TArchieveDAO createTArchiveDAO(){return new TArchieveDAO(ConnectionBuilder.getConnection());}
     public PArchiveDAO createPArchiveDAO(){return new PArchiveDAO(ConnectionBuilder.getConnection());}
+    public CArchiveDAO createCArchiveDAO(){return new CArchiveDAO(ConnectionBuilder.getConnection());}
 }

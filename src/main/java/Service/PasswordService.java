@@ -15,15 +15,20 @@ public class PasswordService {
      * @return the hashed password as a string
      * @throws NoSuchAlgorithmException if the SHA-256 algorithm is not available
      */
-    public String hashPW(String PW) throws NoSuchAlgorithmException {
-        MessageDigest digset = MessageDigest.getInstance("SHA-256");
+    public String hashPW(String PW) {
+
+        MessageDigest digset = null;
+        try {
+            digset = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
         byte[] hash = digset.digest(PW.getBytes(StandardCharsets.UTF_8));
         StringBuilder hexString = new StringBuilder();
         for (byte b : hash) {
             String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
+            if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
         return hexString.toString();

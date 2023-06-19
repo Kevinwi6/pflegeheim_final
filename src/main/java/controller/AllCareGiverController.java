@@ -1,5 +1,6 @@
 package controller;
 
+import Service.ArchiveService;
 import datastorage.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import model.CArchive;
 import model.Caregiver;
 import model.PArchive;
 import model.Patient;
@@ -94,10 +96,14 @@ public class AllCareGiverController {
 
     @FXML
     public void handleDeleteRow() {
+        ArchiveService archiveService = new ArchiveService();
+        CArchiveDAO cArchiveDAO = DAOFactory.getDAOFactory().createCArchiveDAO();
         CaregiverDAO cDao = DAOFactory.getDAOFactory().createCareGiverDAO();
         Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
 
         try {
+            CArchive c = archiveService.convertCaregiverIntoArchive(selectedItem);
+            cArchiveDAO.create(c);
             cDao.deleteById(selectedItem.getCid());
             this.tableView.getItems().remove(selectedItem);
         } catch (SQLException e) {
