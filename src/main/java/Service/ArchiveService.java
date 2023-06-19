@@ -1,65 +1,137 @@
 package Service;
 
-import datastorage.PArchiveDAO;
-import datastorage.TArchieveDAO;
-import datastorage.ConnectionBuilder;
+import datastorage.*;
 import model.PArchive;
 import model.Patient;
-import model.TArchieve;
+import model.TArchive;
 import model.Treatment;
 import utils.DateConverter;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 //METHODDEN FÜR PARCHIVE MACHEN
+/**
+ * The ArchiveService class provides methods for converting treatments and patients into the P- and Tarchive objects,
+ * checking if patient data or treatment data is expired and deleting these data in the archives,
+ * blocking treatments by patient ID, and retrieving treatments with a given patient ID.
+ */
 public class ArchiveService {
     private TArchieveDAO TArchieveDAO = new TArchieveDAO(ConnectionBuilder.getConnection());
     private PArchiveDAO pArchiveDAO = new PArchiveDAO(ConnectionBuilder.getConnection());
-    public TArchieve convertTreatmentIntoArchive(Treatment t){
-        LocalDate treatDate =  DateConverter.convertStringToLocalDate(t.getDate());
+
+    /**
+     * Converts a Treatment object into a TArchive object.
+     *
+     * @param t Treatment
+     * @return the converted TArchive object
+     */
+    public TArchive convertTreatmentIntoArchive(Treatment t) {
+        LocalDate treatDate = DateConverter.convertStringToLocalDate(t.getDate());
         LocalTime begin = DateConverter.convertStringToLocalTime(t.getBegin());
         LocalTime end = DateConverter.convertStringToLocalTime(t.getEnd());
-        TArchieve a = new TArchieve(t.getTid(),t.getPid(),treatDate,begin,end,t.getDescription(),t.getRemarks(), LocalDate.now());
-        return a;
-    }
-    public PArchive convertPatientIntoArchive(Patient p){
-        LocalDate dateofbirth = DateConverter.convertStringToLocalDate(p.getDateOfBirth());
-        PArchive a = new PArchive(p.getPid(),p.getFirstName(),p.getSurname(),dateofbirth,p.getCareLevel(),p.getRoomnumber(),LocalDate.now());
+        TArchive a = new TArchive(t.getTid(), t.getPid(), treatDate, begin, end,
+                t.getDescription(), t.getRemarks(), LocalDate.now());
         return a;
     }
 
+    /**
+     * Converts a Patient object into a PArchive object.
+     *
+     * @param p Patient
+     * @return the converted PArchive object
+     */
+    public PArchive convertPatientIntoArchive(Patient p) {
+        LocalDate dateofbirth = DateConverter.convertStringToLocalDate(p.getDateOfBirth());
+        PArchive a = new PArchive(p.getPid(), p.getFirstName(), p.getSurname(), dateofbirth,
+                p.getCareLevel(), p.getRoomnumber(), LocalDate.now());
+        return a;
+    }
+
+    /**
+     * Checks and deletes old data in the archives that are older than 10 years.
+     */
     public void checkDateForDelete() {
-        List<TArchieve> checkForDelete = null;
+        List<TArchive> checkForDelete = null;
         try {
             checkForDelete = TArchieveDAO.readAll();
             List<PArchive> checkPForDelte = pArchiveDAO.readAll();
             LocalDate actualDate = LocalDate.now();
-            for(TArchieve a : checkForDelete){
+            for (TArchive a : checkForDelete) {
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
-                if(checkForTenYears(actualDate,toCheckDate)){
+                if (checkForTenYears(actualDate, toCheckDate)) {
                     TArchieveDAO.deleteById(a.getBid());
                 }
             }
-            for(PArchive p : checkPForDelte){
+            for (PArchive p : checkPForDelte) {
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(p.getArchived_at()));
-                if(checkForTenYears(actualDate,toCheckDate)){
+                if (checkForTenYears(actualDate, toCheckDate)) {
                     pArchiveDAO.deleteById(p.getPid());
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-    }
-    public LocalDate getCorrectDateToCalc(LocalDate oldDate){
-      return   oldDate.plusYears(1).withMonth(1).withDayOfMonth(1);
-    }
-    public boolean checkForTenYears(LocalDate actualDate,LocalDate toCheck){
-        if(actualDate.getYear() - toCheck.getYear() >=10)return true;
-        return false;
     }
 
+    /**
+     * Returns the new date. The old date get round up to the next year to the 1. January
+     *
+     * @param oldDate
+     * @return the correct date to calculate
+     */
+    public LocalDate getCorrectDateToCalc(LocalDate oldDate) {
+        return oldDate.plusYears(1).withMonth(1).withDayOfMonth(1);
+    }
+
+    /**
+     * Checks if the difference between the actual date and the date to check is equal to or greater than 10 years.
+     *
+     * @param actualDate the actual date
+     * @param toCheck    the date to check
+     * @return true if the difference is equal to or greater than 10 years, false otherwise
+     */
+    public boolean checkForTenYears(LocalDate actualDate, LocalDate toCheck) {
+        return actualDate.getYear() - toCheck.getYear() >= 10;
+    }
+
+    /**
+     * Adds all treatments to the archive by patient ID.
+     *
+     * @param pID patient ID
+     */
+    public void blockAllTreatmentsByPatientID(long pID) {
+        List<Treatment> archivedTreatmentsList = getListOfTreatmentsWithGivenID(pID);
+        TArchieveDAO tADAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+
+        for (Treatment treatment : archivedTreatmentsList) {
+            try {
+                tADAO.create(convertTreatmentIntoArchive(treatment));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Returns a list of treatments with a given patient ID.
+     *
+     * @param pID patient ID
+     * @return a list of treatments with the given patient ID
+     */
+    public List<Treatment> getListOfTreatmentsWithGivenID(long pID) {
+        List<Treatment> treatmentsList = new ArrayList<>();
+        TreatmentDAO tDAO = DAOFactory.getDAOFactory().createTreatmentDAO();
+
+        try {
+            treatmentsList.add(tDAO.read(pID));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return treatmentsList;
+    }
 }
+

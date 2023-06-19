@@ -1,28 +1,26 @@
 package model;
 
 import utils.DateConverter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * The Treatment class represents a treatment in the system.
- * It stores information such as treatment ID, project ID, caregiver ID, date, begin time,
- * end time, description, and remarks.
+ * The TArchive class represents the Archived Treatment object.
  */
-public class Treatment {
-    private long tid;
+public class TArchive {
+    private long bid;
     private long pid;
-    private long cid;
     private LocalDate date;
     private LocalTime begin;
     private LocalTime end;
     private String description;
     private String remarks;
-    private Caregiver caregiver;
+    private LocalDate archived_at;
 
     /**
-     * Constructs a Treatment object with the given patient ID, caregiver ID, date, begin time,
-     * end time, description and remarks.
+     * Constructs a TArchive object with the given patient ID, date, begin time, end time,
+     * description, remarks, and the date it was archived.
      *
      * @param pid
      * @param date
@@ -30,71 +28,53 @@ public class Treatment {
      * @param end
      * @param description
      * @param remarks
+     * @param archived_at
      */
-    public Treatment(long pid, long cid, LocalDate date, LocalTime begin, LocalTime end,
-                     String description, String remarks, Caregiver caregiver) {
-        this.cid = cid;
+    public TArchive(long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
         this.pid = pid;
+        this.archived_at = archived_at;
         this.date = date;
-        this.begin = begin;
         this.end = end;
+        this.begin = begin;
         this.description = description;
         this.remarks = remarks;
-        this.caregiver = caregiver;
     }
 
     /**
-     * Constructs a Treatment object with the given treatment ID, patient ID, caregiver ID,
-     * date, begin time, end time, description, and remarks.
+     * Constructs a TArchive object with the given treatment ID, block ID, date, begin time, end time,
+     * description, remarks, and the date it was archived.
      *
-     * @param tid
+     * @param bid
      * @param pid
-     * @param cid
      * @param date
      * @param begin
      * @param end
      * @param description
      * @param remarks
+     * @param archived_at
      */
-    public Treatment(long tid, long pid, long cid, LocalDate date, LocalTime begin, LocalTime end,
-                     String description, String remarks) {
-        this.tid = tid;
+    public TArchive(long bid, long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
+        this.bid = bid;
         this.pid = pid;
-        this.cid = cid;
+        this.archived_at = archived_at;
         this.date = date;
-        this.begin = begin;
         this.end = end;
+        this.begin = begin;
         this.description = description;
         this.remarks = remarks;
     }
 
     /**
      *
-     * @return the caregiver ID of the treatment
+     * @return the blocked ID (primary key for the database)
      */
-    public long getCid() {
-        return cid;
+    public long getBid() {
+        return bid;
     }
 
     /**
      *
-     * @param cid sets the caregiver ID of the treatment
-     */
-    public void setCid(long cid) {
-        this.cid = cid;
-    }
-
-    /**
-     *
-     * @return the treatment ID
-     */
-    public long getTid() {
-        return tid;
-    }
-
-    /**
-     *
-     * @return sets the patient ID of the treatment
+     * @return the patient ID
      */
     public long getPid() {
         return this.pid;
@@ -126,7 +106,24 @@ public class Treatment {
 
     /**
      *
-     * @param s_date sets the date of the treatment in string format (yyyy-MM-dd)
+     * @return the date the treatment was archived in string format (yyyy-MM-dd)
+     */
+    public String getArchived_at(){
+        return archived_at.toString();
+    }
+
+    /**
+     *
+     * @param archived_at the date the treatment was archived in string format (yyyy-MM-dd)
+     */
+    public void setArchived_at(String archived_at){
+        LocalDate archive = DateConverter.convertStringToLocalDate(archived_at);
+        this.archived_at = archive;
+    }
+
+    /**
+     *
+     * @param s_date the date of the treatment in string format (yyyy-MM-dd)
      */
     public void setDate(String s_date) {
         LocalDate date = DateConverter.convertStringToLocalDate(s_date);
@@ -135,15 +132,15 @@ public class Treatment {
 
     /**
      *
-     * @param begin sets the begin time of the treatment in string format (HH:mm)
+     * @param begin the begin time of the treatment in string format (HH:mm)
      */
+    //TODO Methode
     public void setBegin(String begin) {
         LocalTime time = DateConverter.convertStringToLocalTime(begin);
         this.begin = time;
     }
 
     /**
-     * Sets the end time of the treatment.
      *
      * @param end the end time of the treatment in string format (HH:mm)
      */
@@ -182,19 +179,5 @@ public class Treatment {
      */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    /**
-     *
-     * @return a string representation of the Treatment object
-     */
-    public String toString() {
-        return "\nBehandlung" + "\nTID: " + this.tid +
-                "\nPID: " + this.pid +
-                "\nDate: " + this.date +
-                "\nBegin: " + this.begin +
-                "\nEnd: " + this.end +
-                "\nDescription: " + this.description +
-                "\nRemarks: " + this.remarks + "\n";
     }
 }

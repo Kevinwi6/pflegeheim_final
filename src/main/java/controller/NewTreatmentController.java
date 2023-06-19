@@ -77,7 +77,7 @@ public class NewTreatmentController {
         String description = txtDescription.getText();
         String remarks = taRemarks.getText();
         Caregiver caregiver = getCareGiver();
-        Treatment treatment = new Treatment(patient.getPid(),caregiver.getCid() ,date,
+        Treatment treatment = new Treatment(patient.getPid(),caregiver.getCid(), date,
                 begin, end, description, remarks, caregiver);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();

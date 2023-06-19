@@ -1,9 +1,7 @@
 package controller;
 
 import Service.ArchiveService;
-import datastorage.PArchiveDAO;
-import datastorage.PatientDAO;
-import datastorage.TreatmentDAO;
+import datastorage.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import model.PArchive;
 import model.Patient;
+import model.TArchive;
 import utils.DateConverter;
-import datastorage.DAOFactory;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -179,8 +178,10 @@ public class AllPatientController {
         TreatmentDAO tDao = DAOFactory.getDAOFactory().createTreatmentDAO();
         Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
         PArchiveDAO pArchiveDAO = DAOFactory.getDAOFactory().createPArchiveDAO();
+
         try {
             PArchive toBlock = archiveService.convertPatientIntoArchive(selectedItem);
+            archiveService.blockAllTreatmentsByPatientID(selectedItem.getPid());
             pArchiveDAO.create(toBlock);
             tDao.deleteByPid(selectedItem.getPid());
             dao.deleteById(selectedItem.getPid());
