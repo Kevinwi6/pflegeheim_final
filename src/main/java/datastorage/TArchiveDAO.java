@@ -1,6 +1,6 @@
 package datastorage;
 
-import model.TArchieve;
+import model.TArchive;
 import utils.DateConverter;
 
 import java.sql.Connection;
@@ -10,8 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class TArchieveDAO extends DAOimp<TArchieve>{
-    public TArchieveDAO(Connection conn) {
+public class TArchiveDAO extends DAOimp<TArchive>{
+    public TArchiveDAO(Connection conn) {
         super(conn);
     }
 
@@ -22,9 +22,9 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
      * @return <code>String</code> with the generated SQL.
      */
     @Override
-    protected String getCreateStatementString(TArchieve TArchieve) {
+    protected String getCreateStatementString(TArchive TArchive) {
        return String.format("INSERT INTO BLOCKEDDATA (PID,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",
-                TArchieve.getPid(), TArchieve.getDate(), TArchieve.getBegin(), TArchieve.getEnd(), TArchieve.getDescription(), TArchieve.getRemarks(), TArchieve.getArchived_at());
+                TArchive.getPid(), TArchive.getDate(), TArchive.getBegin(), TArchive.getEnd(), TArchive.getDescription(), TArchive.getRemarks(), TArchive.getArchived_at());
     }
 
     /**
@@ -42,13 +42,13 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
      * @return patient with the data from the resultSet.
      */
     @Override
-    protected TArchieve getInstanceFromResultSet(ResultSet set) throws SQLException {
-        LocalDate date = DateConverter.convertStringToLocalDate(set.getString(3));
-        LocalTime begin = DateConverter.convertStringToLocalTime(set.getString(4));
-        LocalTime end = DateConverter.convertStringToLocalTime(set.getString(5));
-        LocalDate archived_at =  DateConverter.convertStringToLocalDate(set.getString(8));
-        TArchieve m = new TArchieve(set.getLong(1), set.getLong(2),
-                date, begin, end, set.getString(6), set.getString(7),archived_at);
+    protected TArchive getInstanceFromResultSet(ResultSet result) throws SQLException {
+        LocalDate date = DateConverter.convertStringToLocalDate(result.getString(3));
+        LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(4));
+        LocalTime end = DateConverter.convertStringToLocalTime(result.getString(5));
+        LocalDate archived_at =  DateConverter.convertStringToLocalDate(result.getString(8));
+        TArchive m = new TArchive(result.getLong(1), result.getLong(2),
+                date, begin, end, result.getString(6), result.getString(7),archived_at);
         return m;
     }
 
@@ -88,7 +88,7 @@ public class TArchieveDAO extends DAOimp<TArchieve>{
      * @return <code>String</code> with the generated SQL.
      */
     @Override
-    protected String getUpdateStatementString(TArchive TArchive) {
+    protected String getUpdateStatementString(TArchive TArchive) throws SQLException {
         return String.format("UPDATE BLOCKEDDATA SET pid = %d, treatment_date ='%s', begin = '%s', end = '%s'," +
                         "description = '%s', remarks = '%s',archived_at = '%s' WHERE bid = %d", TArchive.getPid(), TArchive.getDate(),
                 TArchive.getBegin(), TArchive.getEnd(), TArchive.getDescription(), TArchive.getRemarks(), TArchive.getArchived_at(),

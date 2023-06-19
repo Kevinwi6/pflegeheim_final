@@ -20,7 +20,7 @@ import java.util.List;
  * blocking treatments by patient ID, and retrieving treatments with a given patient ID.
  */
 public class ArchiveService {
-    private TArchieveDAO TArchieveDAO = new TArchieveDAO(ConnectionBuilder.getConnection());
+    private TArchiveDAO TArchiveDAO = new TArchiveDAO(ConnectionBuilder.getConnection());
     private PArchiveDAO pArchiveDAO = new PArchiveDAO(ConnectionBuilder.getConnection());
 
     /**
@@ -57,13 +57,13 @@ public class ArchiveService {
     public void checkDateForDelete() {
         List<TArchive> checkForDelete = null;
         try {
-            checkForDelete = TArchieveDAO.readAll();
+            checkForDelete = TArchiveDAO.readAll();
             List<PArchive> checkPForDelte = pArchiveDAO.readAll();
             LocalDate actualDate = LocalDate.now();
             for (TArchive a : checkForDelete) {
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
                 if (checkForTenYears(actualDate, toCheckDate)) {
-                    TArchieveDAO.deleteById(a.getBid());
+                    TArchiveDAO.deleteById(a.getBid());
                 }
             }
             for (PArchive p : checkPForDelte) {
@@ -105,7 +105,7 @@ public class ArchiveService {
      */
     public void blockAllTreatmentsByPatientID(long pID) {
         List<Treatment> archivedTreatmentsList = getListOfTreatmentsWithGivenID(pID);
-        TArchieveDAO tADAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+        TArchiveDAO tADAO = DAOFactory.getDAOFactory().createTArchiveDAO();
 
         for (Treatment treatment : archivedTreatmentsList) {
             try {

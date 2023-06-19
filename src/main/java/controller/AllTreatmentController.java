@@ -1,7 +1,7 @@
 package controller;
 
 import Service.ArchiveService;
-import datastorage.TArchieveDAO;
+import datastorage.TArchiveDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
 import javafx.collections.FXCollections;
@@ -143,10 +143,10 @@ public class AllTreatmentController {
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment t = this.tableviewContent.remove(index);
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
-        TArchieveDAO TArchieveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+        TArchiveDAO TArchiveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
         try {
            TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
-           TArchieveDAO.create(toBlock);
+           TArchiveDAO.create(toBlock);
             dao.deleteById(t.getTid());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -227,10 +227,10 @@ public class AllTreatmentController {
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment t = this.tableviewContent.remove(index);
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
-        TArchieveDAO TArchieveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+        TArchiveDAO TArchiveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
         try {
             TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
-            TArchieveDAO.create(toBlock);
+            TArchiveDAO.create(toBlock);
             dao.deleteById(t.getTid());
         } catch (SQLException e) {
             e.printStackTrace();
