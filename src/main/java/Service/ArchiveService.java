@@ -1,9 +1,6 @@
 package Service;
 
-import datastorage.CArchiveDAO;
-import datastorage.PArchiveDAO;
-import datastorage.TArchieveDAO;
-import datastorage.ConnectionBuilder;
+import datastorage.*;
 import model.*;
 import utils.DateConverter;
 
@@ -17,6 +14,7 @@ public class ArchiveService {
     private TArchieveDAO tArchieveDAO = new TArchieveDAO(ConnectionBuilder.getConnection());
     private PArchiveDAO pArchiveDAO = new PArchiveDAO(ConnectionBuilder.getConnection());
     private CArchiveDAO cArchiveDAO = new CArchiveDAO(ConnectionBuilder.getConnection());
+    private TreatmentDAO treatmentDAO = new TreatmentDAO(ConnectionBuilder.getConnection());
     public TArchieve convertTreatmentIntoArchive(Treatment t) throws SQLException {
         LocalDate treatDate =  DateConverter.convertStringToLocalDate(t.getDate());
         LocalTime begin = DateConverter.convertStringToLocalTime(t.getBegin());
@@ -40,6 +38,7 @@ public class ArchiveService {
             List<TArchieve>checkTForDelete = tArchieveDAO.readAll();
             List<PArchive> checkPForDelte = pArchiveDAO.readAll();
             List<CArchive> checkCForDelete = cArchiveDAO.readAll();
+            List<Treatment> checkTNForDelete = treatmentDAO.readAll();
             LocalDate actualDate = LocalDate.now();
             for(TArchieve a : checkTForDelete){
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
@@ -57,6 +56,11 @@ public class ArchiveService {
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(c.getArchived_at()));
                 if(checkForTenYears(actualDate,toCheckDate)){
                     cArchiveDAO.deleteById(c.getCid());
+                }
+            }
+            for(Treatment t : checkTNForDelete){
+                if(checkForTenYears(actualDate,DateConverter.convertStringToLocalDate(t.getDate()))){
+                    treatmentDAO.deleteByPid(t.getPid());
                 }
             }
 
