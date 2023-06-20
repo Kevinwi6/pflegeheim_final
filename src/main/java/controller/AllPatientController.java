@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import model.PArchive;
 import model.Patient;
-import model.TArchieve;
 import utils.DateConverter;
 import datastorage.DAOFactory;
 import java.sql.SQLException;

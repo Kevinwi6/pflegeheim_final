@@ -28,6 +28,7 @@
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" prefWidth="200.0" />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
                   <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,6 +37,7 @@
                   <Button fx:id="btnNewTreament" mnemonicParsing="false" onAction="#handleNewTreatment" prefWidth="200.0" text="neue Behandlung anlegen" GridPane.columnIndex="1" />
                   <ComboBox fx:id="comboBox" minWidth="160.0" onAction="#handleComboBox" prefWidth="200.0" />
                   <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="200.0" text="Löschen" GridPane.columnIndex="2" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="161.0" text="Archivieren" GridPane.columnIndex="3" onAction="#handleArchiveButton"/>
                </children>
                <padding>
                   <Insets right="10.0" />

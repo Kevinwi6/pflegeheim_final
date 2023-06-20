@@ -1,7 +1,7 @@
 package controller;
 
 import Service.ArchiveService;
-import datastorage.TArchieveDAO;
+import datastorage.TArchiveDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
 import javafx.collections.FXCollections;
@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.TArchieve;
+import model.TArchive;
 import model.Patient;
 import model.Treatment;
 import datastorage.DAOFactory;
@@ -143,10 +143,10 @@ public class AllTreatmentController {
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment t = this.tableviewContent.remove(index);
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
-        TArchieveDAO TArchieveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+        TArchiveDAO TArchiveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
         try {
-           TArchieve toBlock = archiveService.convertTreatmentIntoArchive(t);
-           TArchieveDAO.create(toBlock);
+           TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
+           TArchiveDAO.create(toBlock);
             dao.deleteById(t.getTid());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -218,6 +218,21 @@ public class AllTreatmentController {
             stage.showAndWait();
         } catch (IOException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void handleArchiveButton() {
+        ArchiveService archiveService = new ArchiveService();
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment t = this.tableviewContent.remove(index);
+        TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
+        TArchiveDAO TArchiveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
+        try {
+            TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
+            TArchiveDAO.create(toBlock);
+            dao.deleteById(t.getTid());
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
