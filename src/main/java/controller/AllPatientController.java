@@ -182,7 +182,6 @@ public class AllPatientController {
         try {
             PArchive toBlock = archiveService.convertPatientIntoArchive(selectedItem);
             pArchiveDAO.create(toBlock);
-            tDao.deleteByPid(selectedItem.getPid());
             dao.deleteById(selectedItem.getPid());
             this.tableView.getItems().remove(selectedItem);
         } catch (SQLException e) {

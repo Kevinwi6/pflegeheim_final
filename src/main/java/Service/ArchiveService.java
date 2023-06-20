@@ -7,19 +7,20 @@ import utils.DateConverter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 //METHODDEN FÜR PARCHIVE MACHEN
 public class ArchiveService {
-    private TArchieveDAO tArchieveDAO = new TArchieveDAO(ConnectionBuilder.getConnection());
+    private TArchiveDAO tArchieveDAO = new TArchiveDAO(ConnectionBuilder.getConnection());
     private PArchiveDAO pArchiveDAO = new PArchiveDAO(ConnectionBuilder.getConnection());
     private CArchiveDAO cArchiveDAO = new CArchiveDAO(ConnectionBuilder.getConnection());
     private TreatmentDAO treatmentDAO = new TreatmentDAO(ConnectionBuilder.getConnection());
-    public TArchieve convertTreatmentIntoArchive(Treatment t) throws SQLException {
+    public TArchive convertTreatmentIntoArchive(Treatment t) throws SQLException {
         LocalDate treatDate =  DateConverter.convertStringToLocalDate(t.getDate());
         LocalTime begin = DateConverter.convertStringToLocalTime(t.getBegin());
         LocalTime end = DateConverter.convertStringToLocalTime(t.getEnd());
-        TArchieve a = new TArchieve(t.getTid(),t.getPatientName(t.getPid()),treatDate,begin,end,t.getDescription(),t.getRemarks(), LocalDate.now());
+        TArchive a = new TArchive(t.getTid(),t.getPatientName(t.getPid()),treatDate,begin,end,t.getDescription(),t.getRemarks(), LocalDate.now());
         return a;
     }
     public CArchive convertCaregiverIntoArchive(Caregiver c){
@@ -35,12 +36,12 @@ public class ArchiveService {
     public void checkDateForDelete() {
 
         try {
-            List<TArchieve>checkTForDelete = tArchieveDAO.readAll();
+            List<TArchive>checkTForDelete = tArchieveDAO.readAll();
             List<PArchive> checkPForDelte = pArchiveDAO.readAll();
             List<CArchive> checkCForDelete = cArchiveDAO.readAll();
             List<Treatment> checkTNForDelete = treatmentDAO.readAll();
             LocalDate actualDate = LocalDate.now();
-            for(TArchieve a : checkTForDelete){
+            for(TArchive a : checkTForDelete){
                 LocalDate toCheckDate = getCorrectDateToCalc(DateConverter.convertStringToLocalDate(a.getArchived_at()));
                 if(checkForTenYears(actualDate,toCheckDate)){
                     tArchieveDAO.deleteById(a.getBid());
@@ -76,5 +77,6 @@ public class ArchiveService {
         if(actualDate.getYear() - toCheck.getYear() >=11)return true;
         return false;
     }
+
 
 }

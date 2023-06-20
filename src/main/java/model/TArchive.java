@@ -1,7 +1,10 @@
 package model;
 
+import datastorage.ConnectionBuilder;
+import datastorage.PatientDAO;
 import utils.DateConverter;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,6 +20,8 @@ public class TArchive {
     private String description;
     private String remarks;
     private LocalDate archived_at;
+    private String patientName;
+    private PatientDAO patientDAO = new PatientDAO(ConnectionBuilder.getConnection());
 
     /**
      * Constructs a TArchive object with the given patient ID, date, begin time, end time,
@@ -30,8 +35,8 @@ public class TArchive {
      * @param remarks
      * @param archived_at
      */
-    public TArchive(long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
-        this.pid = pid;
+    public TArchive(String patientName, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
+        this.patientName = patientName;
         this.archived_at = archived_at;
         this.date = date;
         this.end = end;
@@ -53,9 +58,9 @@ public class TArchive {
      * @param remarks
      * @param archived_at
      */
-    public TArchive(long bid, long pid, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
+    public TArchive(long bid, String patientName, LocalDate date, LocalTime begin, LocalTime end, String description, String remarks, LocalDate archived_at){
         this.bid = bid;
-        this.pid = pid;
+        this.patientName = patientName;
         this.archived_at = archived_at;
         this.date = date;
         this.end = end;
@@ -72,10 +77,22 @@ public class TArchive {
         return bid;
     }
 
+    public String getPatientName(long pid) throws SQLException {
+        Patient p = patientDAO.read(pid);
+        if(p!=null)
+        patientName = p.getFirstName() +" "+p.getSurname();
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
     /**
      *
      * @return the patient ID
      */
+
     public long getPid() {
         return this.pid;
     }

@@ -22,9 +22,9 @@ public class TArchiveDAO extends DAOimp<TArchive>{
      * @return <code>String</code> with the generated SQL.
      */
     @Override
-    protected String getCreateStatementString(TArchive TArchive) {
-       return String.format("INSERT INTO BLOCKEDDATA (PID,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",
-                TArchive.getPid(), TArchive.getDate(), TArchive.getBegin(), TArchive.getEnd(), TArchive.getDescription(), TArchive.getRemarks(), TArchive.getArchived_at());
+    protected String getCreateStatementString(TArchive TArchive) throws SQLException {
+       return String.format("INSERT INTO BLOCKEDDATA (PATIENT_NAME,TREATMENT_DATE,BEGIN,END,DESCRIPTION,REMARKS,ARCHIVED_AT) VALUES ('%s', '%s','%s','%s','%s','%s','%s')",
+                TArchive.getPatientName(TArchive.getPid()), TArchive.getDate(), TArchive.getBegin(), TArchive.getEnd(), TArchive.getDescription(), TArchive.getRemarks(), TArchive.getArchived_at());
     }
 
     /**
@@ -47,7 +47,7 @@ public class TArchiveDAO extends DAOimp<TArchive>{
         LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(4));
         LocalTime end = DateConverter.convertStringToLocalTime(result.getString(5));
         LocalDate archived_at =  DateConverter.convertStringToLocalDate(result.getString(8));
-        TArchive m = new TArchive(result.getLong(1), result.getLong(2),
+        TArchive m = new TArchive(result.getLong(1), result.getString(2),
                 date, begin, end, result.getString(6), result.getString(7),archived_at);
         return m;
     }
@@ -75,7 +75,7 @@ public class TArchiveDAO extends DAOimp<TArchive>{
             LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(4));
             LocalTime end = DateConverter.convertStringToLocalTime(result.getString(5));
             LocalDate archived_at =  DateConverter.convertStringToLocalDate(result.getString(8));
-            t = new TArchive(result.getLong(1), result.getLong(2),
+            t = new TArchive(result.getLong(1), result.getString(2),
                     date, begin, end, result.getString(6), result.getString(7),archived_at);
             list.add(t);
         }
