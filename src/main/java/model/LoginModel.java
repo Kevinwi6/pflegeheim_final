@@ -59,7 +59,7 @@ public class LoginModel {
 
     /**
      *
-     * @param username the username to set
+     * @param username sets the username
      */
     //TODO Methode
     public void setUsername(String username) {
@@ -68,7 +68,7 @@ public class LoginModel {
 
     /**
      *
-     * @param iD the user ID to set
+     * @param iD sets the user ID
      */
     //TODO Methode
     public void setiD(long iD) {
@@ -77,7 +77,7 @@ public class LoginModel {
 
     /**
      *
-     * @param passwordHash the password hash to set
+     * @param passwordHash sets the password hash
      */
     //TODO Methode
     public void setPasswordHash(String passwordHash) {

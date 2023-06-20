@@ -36,6 +36,7 @@ public class Treatment {
      * @param end
      * @param description
      * @param remarks
+     * @param caregiver
      */
     public Treatment(long pid, long cid, LocalDate date, LocalTime begin, LocalTime end,
                      String description, String remarks, Caregiver caregiver) {
@@ -73,11 +74,22 @@ public class Treatment {
         this.description = description;
         this.remarks = remarks;
     }
+
+    /**
+     *
+     * @param pid patient id
+     * @return a string with the full name of the patient
+     * @throws SQLException
+     */
     public String getPatientName(long pid) throws SQLException {
         Patient p = patientDAO.read(pid);
         return patientName = p.getFirstName() +" "+ p.getSurname();
     }
 
+    /**
+     *
+     * @param patientName sets the patient name
+     */
     public void setPatientName(String patientName) {
         this.patientName = patientName;
     }
@@ -196,6 +208,14 @@ public class Treatment {
      */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    /**
+     *
+     * @return the caregiver
+     */
+    public Caregiver getCaregiver() {
+        return caregiver;
     }
 
     /**

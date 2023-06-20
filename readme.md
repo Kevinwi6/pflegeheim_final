@@ -52,3 +52,49 @@ Wird das Open JDK verwendet, werden JavaFX-Abhängigkeiten nicht importiert. Die
 - Bitte nicht in die Datenbank schauen, während die Applikation läuft. Das sorgt leider für einen Lock, der erst wieder verschwindet, wenn IntelliJ neugestartet wird!
 
 ## Benutzername und Passwort für das Login
+
+- Benutzername: NhPlusUser
+- Passwort: superSavePW123
+
+## Features die nicht Funktionieren
+
+Pfleger können erst gelöscht werden, wenn alle Behandlungen, in dem der Pfleger aktiv ist, auch gelöscht werden
+Patienten können nicht gelöscht werden, wenn sie in einer Behandlung angegeben sind
+
+## Testfälle
+
+
+## Tabelle Patienten
+| Test                                                         | Ergebnis    |
+|--------------------------------------------------------------|-------------|
+| Die Spalte Assets ist in der Datenbank nicht mehr vorhanden  | erfolgreich |
+| Die Spalte Assets ist in AllPatientView nicht mehr vorhanden | erfolgreich |
+
+## Testfälle fürs Login
+
+| Test                                                                             | Ergebnis    |
+|----------------------------------------------------------------------------------|-------------|
+| Pfleger gibt richtige Anmeldedaten an und kann sich dadurch erfolgreich anmelden | erfolgreich |
+| Pfleger gibt falsche Anmeldedaten an und kann sich dadurch nicht anmelden        | erfolgreich |
+| Die Passwörter stehen verschlüsselt in der Datenbank                             | erfolgreich |
+
+## Testfälle für gesperrte Daten (Patienten-,Pfleger- und Behandlungsdaten)
+
+| Test                                                      | Ergebnis    |
+|-----------------------------------------------------------|-------------|
+| Daten die älter als 10 Jahre alt sind werden gelöscht     | erfolgreich |
+| Daten werden gesperrt, wenn der zweck erloschen ist       | erfolgreich |
+| Prüfen, ob die Daten nach ablauf des Zweckes noch da sind | erfolgreich |
+
+## Testfälle für Pfleger
+
+| Test                                                               | Ergebnis    |
+|--------------------------------------------------------------------|-------------|
+| Alle Pfleger werden anzeigt, wenn man die AllCareGiverView aufruft | erfolgreich |
+
+
+## Testfälle für Behandlungen
+
+| Test                                                                   | Ergebnis    |
+|------------------------------------------------------------------------|-------------|
+| Der behandelnde Pfleger wird beim Einsehen einer Behandlung angezeigt. | erfolgreich |

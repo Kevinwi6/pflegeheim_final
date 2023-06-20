@@ -19,8 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TreatmentController {
-    @FXML
-    private ComboBox<String> comboBox;
+    public Label lblPfleger;
     @FXML
     private Label lblPatientName;
     @FXML
@@ -49,8 +48,6 @@ public class TreatmentController {
 
     public void initializeController(AllTreatmentController controller, Stage stage, Treatment treatment) {
         PatientDAO pDao = DAOFactory.getDAOFactory().createPatientDAO();
-        comboBox.setItems(tableViewContent);
-        comboBox.getSelectionModel().select(0);
 
         this.stage = stage;
         this.controller = controller;
@@ -75,6 +72,12 @@ public class TreatmentController {
         this.txtEnd.setText(this.treatment.getEnd());
         this.txtDescription.setText(this.treatment.getDescription());
         this.taRemarks.setText(this.treatment.getRemarks());
+        try {
+            this.lblPfleger.setText(cDao.read(treatment.getCid()).getSurename());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         try {
             this.careGiverList = (ArrayList<Caregiver>) cDao.readAll();
             for (Caregiver caregiver : careGiverList) {

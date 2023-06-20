@@ -145,8 +145,8 @@ public class AllTreatmentController {
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
         TArchiveDAO TArchiveDAO = DAOFactory.getDAOFactory().createTArchiveDAO();
         try {
-           TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
-           TArchiveDAO.create(toBlock);
+            TArchive toBlock = archiveService.convertTreatmentIntoArchive(t);
+            TArchiveDAO.create(toBlock);
             dao.deleteById(t.getTid());
         } catch (SQLException e) {
             e.printStackTrace();

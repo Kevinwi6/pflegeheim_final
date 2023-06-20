@@ -24,7 +24,7 @@ public class TArchive {
     private PatientDAO patientDAO = new PatientDAO(ConnectionBuilder.getConnection());
 
     /**
-     * Constructs a TArchive object with the given patient ID, date, begin time, end time,
+     * Constructs a TArchive object (treatment archive object) with the given patient ID, date, begin time, end time,
      * description, remarks, and the date it was archived.
      *
      * @param pid

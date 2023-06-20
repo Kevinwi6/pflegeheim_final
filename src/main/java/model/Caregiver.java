@@ -83,7 +83,7 @@ public class Caregiver {
 
     /**
      *
-     * @param phoneNumber sets the phone number´´
+     * @param phoneNumber sets the phone number
      */
     public void setPhoneNumber(String phoneNumber){this.phoneNumber = phoneNumber;}
 

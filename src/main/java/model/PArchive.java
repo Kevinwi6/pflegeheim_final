@@ -14,7 +14,7 @@ public class PArchive extends Person {
     private LocalDate archived_at;
 
     /**
-     * Constructs a PArchive object with the given first name and surname.
+     * Constructs a PArchive (Archived Person) object with the given first name and surname.
      *
      * @param firstName
      * @param surname
@@ -106,16 +106,6 @@ public class PArchive extends Person {
     }
 
     /**
-     * convert given param to a localDate and store as new <code>birthOfDate</code>
-     * @param dateOfBirth as string in the following format: YYYY-MM-DD
-     */
-    //TODO brauchen wir diese Methode?
-    public void setDateOfBirth(String dateOfBirth) {
-        LocalDate birthday = DateConverter.convertStringToLocalDate(dateOfBirth);
-        this.dateOfBirth = birthday;
-    }
-
-    /**
      *
      * @return the archived date
      */
@@ -134,9 +124,8 @@ public class PArchive extends Person {
     }
 
     /**
-     * Sets the room number of the person.
      *
-     * @param roomnumber the new room number
+     * @param roomnumber sets the new room number
      */
     //TODO brauchen wir diese Methode?
     public void setRoomnumber(String roomnumber) {

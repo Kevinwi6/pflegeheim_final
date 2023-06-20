@@ -76,17 +76,17 @@ public class NewTreatmentController {
         LocalTime end = DateConverter.convertStringToLocalTime(txtEnd.getText());
         String description = txtDescription.getText();
         String remarks = taRemarks.getText();
-        Caregiver caregiver = getCareGiver();
+        Caregiver caregiver = getCareGiver(combobox.getSelectionModel().getSelectedItem());
         Treatment treatment = new Treatment(patient.getPid(),caregiver.getCid(), date,
                 begin, end, description, remarks, caregiver);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();
         stage.close();
     }
-    private Caregiver getCareGiver(){
-        for(Caregiver caregiver1 : careGiverList){
-            if(caregiver1.getFirstname().equals( combobox.getSelectionModel().getSelectedItem())){
-                return caregiver1;
+    private Caregiver getCareGiver(String caregiverName){
+        for(Caregiver caregiver : careGiverList){
+            if(caregiver.getFirstname().equals(caregiverName)){
+                return caregiver;
             }
         }
         return null;
